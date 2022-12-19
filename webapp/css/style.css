@@ -7,3 +7,15 @@
   color: white;
   font-weight: 600;
 }
+
+.oddRow {
+  background-color: #c7bd2324;
+}
+
+.evenRow {
+  background-color: #c7bd2357;
+}
+
+.oddRow:hover, .evenRow:hover {
+  background-color: #c7bd23bb;
+}
