@@ -1,35 +1,60 @@
 <mvc:View controllerName="ui5boilerplate.controller.Home"
   displayBlock="true"
   xmlns="sap.m"
+  xmlns:t="sap.ui.table"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns:core="sap.ui.core">
-  <Page showHeader="false">
-    <FlexBox class="integrtrPanelBg sapUiMediumMarginBottom"
-      height="250px"
-      alignItems="Center"
-      justifyContent="Center"
-      direction="Column">
-      <Image src="https://openui5.org/654aad3012a144881ab07c0bbdd26eb8/phenix_red.svg"
-        class="sapUiMediumMarginTop"
-        width="140px"
-        decorative="false" />
-      <Title class="integrtrPanelText"
-        level="H1"
-        titleStyle="H1"
-        text="{i18n>HELLO_MESSAGE}" />
-    </FlexBox>
+  <Page showHeader="true"
+    class="sapUiContentPadding">
 
-    <FlexBox alignItems="Center"
-      justifyContent="Center"
-      direction="Row">
-      <core:Icon class="sapUiTinyMarginEnd"
-        src="sap-icon://edit"
-        color="#031E48" />
-      <Title titleStyle="H5"
-        level="H5"
-        width="100%"
-        text="{i18n>GET_STARTED_TEXT}" />
-    </FlexBox>
+    <customHeader>
+      <Toolbar >
+        <ToolbarSpacer ></ToolbarSpacer>
+        <core:Icon src="sap-icon://table-view"></core:Icon>
+        <Text text="Alternative Row Colors for UI5 TreeTable"></Text>
+        <ToolbarSpacer ></ToolbarSpacer>
+      </Toolbar>
+    </customHeader>
+
+    <t:TreeTable id="TreeTableBasic"
+      rows="{path:'clientModel>/catalog/clothing', parameters: {arrayNames:['categories']}}"
+      selectionMode="None"
+      visibleRowCountMode="Auto"
+      rowsUpdated="applyBgColorsToTableRows"
+      enableSelectAll="false"
+      ariaLabelledBy="title">
+
+      <t:columns>
+        <t:Column autoResizable="true">
+          <Label text="Categories"
+            design="Bold" />
+          <t:template>
+            <Text text="{clientModel>name}"
+              wrapping="false" />
+          </t:template>
+        </t:Column>
+        <t:Column autoResizable="true">
+          <Label text="Price"
+            design="Bold" />
+          <t:template>
+            <Text text="{clientModel>amount}" />
+          </t:template>
+        </t:Column>
+        <t:Column autoResizable="true">
+          <Label text="Size"
+            design="Bold" />
+          <t:template>
+            <Select items="{path: 'clientModel>/sizes', templateShareable: true}"
+              selectedKey="{clientModel>size}"
+              visible="{= !!${clientModel>size}}"
+              forceSelection="false">
+              <core:Item key="{clientModel>key}"
+                text="{clientModel>value}" />
+            </Select>
+          </t:template>
+        </t:Column>
+      </t:columns>
+    </t:TreeTable>
 
     <footer>
       <Toolbar>
